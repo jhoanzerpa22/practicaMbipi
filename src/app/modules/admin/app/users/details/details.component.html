@@ -1,0 +1,256 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500" [routerLink]="['..']">Usuarios</a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon
+                        class="icon-size-5 text-secondary"
+                        [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500">{{ id > 0 ? 'Editar' : 'Crear' }}</a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    {{ id > 0 ? 'Editar' : 'Crear' }} Usuario
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+
+        <div class="max-w-3xl">
+
+            <!--<div class="prose prose-sm max-w-3xl">
+                <p>
+                    Forms are one of the most important and most used components of any web application. Below, you can find couple of ready to use form layout examples which you
+                    can use as the base of your own forms.
+                </p>
+            </div>-->
+
+            <!-- Sectioned form with dividers -->
+            <!--<div class="prose prose-sm max-w-3xl">
+                <h2 class="mt-12">Sectioned form with dividers</h2>
+                <p>
+                    This sectioned form example uses dividers to separate the different sections of the form. Form fields uses <em>placeholders</em> and don't have separate labels
+                    for more compact look.
+                </p>
+            </div>-->
+
+            <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden" [formGroup]="signUpForm">
+                <p class="text-lg font-medium">Información Básica</p>
+                <p class="text-secondary mb-6">
+                    Establezca sus preferencias de inicio de sesión, ayúdenos a personalizar su experiencia y realice grandes cambios en la cuenta aquí
+                </p>
+                <div class="flex">
+                    <mat-form-field class="flex-auto">
+                        <input
+                            matInput
+                            [placeholder]="'Correo Electrónico'"
+                            [formControlName]="'correo_login'"
+                            [readonly]="id > 0">
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                            
+                        <mat-error>
+                            Correo es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex" *ngIf="!id">
+                    <!-- Password field -->
+                    <mat-form-field class="flex-auto">
+                        <input
+                            matInput
+                            type="password"
+                            [placeholder]="'Contraseña'"
+                            [formControlName]="'password'"
+                            #passwordField>
+                            <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:key'"></mat-icon>
+                        <button
+                            mat-icon-button
+                            type="button"
+                            (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                            matSuffix>
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField.type === 'password'"
+                                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField.type === 'text'"
+                                [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                        </button>
+                        <mat-error>
+                            Contraseña es requerida
+                        </mat-error>
+                    </mat-form-field>
+                    </div>
+    
+                    <div class="flex" *ngIf="!id">
+                    <!-- Password field -->
+                    <mat-form-field class="flex-auto">
+                        <input
+                            matInput
+                            type="password"
+                            [placeholder]="'Conf Contraseña'"
+                            [formControlName]="'conf_password'"
+                            #passwordField>
+                            <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:key'"></mat-icon>
+                        <button
+                            mat-icon-button
+                            type="button"
+                            (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                            matSuffix>
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField.type === 'password'"
+                                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField.type === 'text'"
+                                [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                        </button>
+                        <mat-error>
+                            Conf Contraseña es requerida
+                        </mat-error>
+                    </mat-form-field>
+                    </div>
+                <!--<div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field class="flex-auto gt-xs:pr-3">
+                        <mat-select [placeholder]="'Country / Region'">
+                            <mat-option value="country-1">Country 1</mat-option>
+                            <mat-option value="country-2">Country 2</mat-option>
+                            <mat-option value="country-3">Country 3</mat-option>
+                        </mat-select>
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <mat-select [placeholder]="'Language'">
+                            <mat-option value="language-1">Language 1</mat-option>
+                            <mat-option value="language-2">Language 2</mat-option>
+                            <mat-option value="language-3">Language 3</mat-option>
+                        </mat-select>
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:translate'"></mat-icon>
+                    </mat-form-field>
+                </div>-->
+
+                <mat-divider class="mt-6 mb-10"></mat-divider>
+
+                <p class="text-lg font-medium">Perfil</p>
+                <p class="text-secondary mb-6">
+                    La gente aquí te conocerá con esta información.
+                </p>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field class="flex-auto gt-xs:pr-3">
+                        <input
+                            matInput
+                            [placeholder]="'Nombre'"
+                            [formControlName]="'nombre'">
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                            
+                        <mat-error>
+                            Nombre es requerido
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <input
+                            matInput
+                            [placeholder]="'RUT'"
+                            [formControlName]="'rut'">
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:identification'"></mat-icon>
+                            
+                        <mat-error>
+                            RUT es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex">
+                    <mat-form-field class="flex-auto">
+                        <input
+                            matInput
+                            [placeholder]="'Teléfono'"
+                            [formControlName]="'fono'">
+                            <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                            
+                        <mat-error>
+                            Teléfono es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field class="flex-auto gt-xs:pr-3">
+                        <mat-select [placeholder]="'Rol'"  [formControlName]="'roles'" >
+                            <mat-option *ngFor="let r of roles" [value]="r.id">
+                                {{r.nombre}}
+                              </mat-option>
+                        </mat-select>
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:shield-check'"></mat-icon>
+                            <mat-error>
+                                Rol es requerido
+                            </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <mat-divider class="mt-6 mb-10"></mat-divider>
+
+                <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                    <button mat-button [routerLink]="['..']">
+                        Cancelar
+                    </button>
+                    <button
+                        class="px-6 ml-3"
+                        mat-flat-button
+                        [color]="'primary'"
+                        [disabled]="signUpForm.disabled"
+                        (click)="signUp()">
+                        
+                    <span *ngIf="!signUpForm.disabled">
+                        Guardar
+                    </span>
+                    <mat-progress-spinner
+                        *ngIf="signUpForm.disabled"
+                        [diameter]="24"
+                        [mode]="'indeterminate'"></mat-progress-spinner>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>

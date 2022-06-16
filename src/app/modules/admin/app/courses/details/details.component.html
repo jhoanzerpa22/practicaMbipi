@@ -1,0 +1,198 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500" [routerLink]="['..']">Cursos</a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon
+                        class="icon-size-5 text-secondary"
+                        [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500">{{ id > 0 ? 'Editar' : 'Crear' }}</a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    {{ id > 0 ? 'Editar' : 'Crear' }} Curso
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+
+        <div class="max-w-6xl">
+
+            <form
+                class="p-4 bg-card shadow rounded overflow-hidden"
+                [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper
+                    [linear]="true"
+                    #horizontalStepper>
+                    <mat-step
+                        [formGroupName]="'step1'"
+                        [stepControl]="horizontalStepperForm.get('step1')"
+                        #horizontalStepperStep1>
+                        <ng-template matStepLabel>Información del Curso</ng-template>
+                        <p class="my-6 font-medium">
+                            Complete su información básica por supuesto
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <input
+                                    matInput
+                                    [placeholder]="'Nombre'"
+                                    [formControlName]="'nombre'">
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:menu'"></mat-icon>
+                                    
+                                <mat-error>
+                                    Nombre es requerido
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="fuse-mat-textarea flex-auto">
+                                <textarea
+                                    matInput
+                                    [formControlName]="'subtitulo'"
+                                    [placeholder]="'Subtítulo'"
+                                    [rows]="3"></textarea>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:menu-alt-2'"></mat-icon>
+                                    
+                                <mat-error>
+                                    Subtítulo es requerido
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto">
+                                <input
+                                    matInput
+                                    [placeholder]="'Duración (min)'"
+                                    [formControlName]="'duracion'"
+                                    type="number">
+                                    <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:clock'"></mat-icon>
+                                    
+                                <mat-error>
+                                    Duración es requerida
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto">
+                                <input
+                                    matInput
+                                    [placeholder]="'Categoría'"
+                                    [formControlName]="'categoria'">
+                                    <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:view-grid'"></mat-icon>
+                                    
+                                <mat-error>
+                                    Categoría es requerida
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <mat-select [placeholder]="'Etapa'"  [formControlName]="'etapa'" >
+                                    <mat-option value="Formación">
+                                        Formación
+                                      </mat-option>
+                                      <mat-option value="Diseño">
+                                        Diseño
+                                      </mat-option>
+                                </mat-select>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:color-swatch'"></mat-icon>
+                                    <mat-error>
+                                        Etapa es requerida
+                                    </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex justify-end">
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                [color]="'primary'"
+                                [disabled]="horizontalStepperStep1.stepControl.invalid"
+                                type="button"
+                                matStepperNext><!--horizontalStepperStep1.stepControl.pristine || -->
+                                Siguiente
+                            </button>
+                        </div>
+                    </mat-step>
+                    <!--
+                    [formGroupName]="'step2'"
+                    [stepControl]="horizontalStepperForm.get('step2')"-->
+                    <mat-step
+                        #horizontalStepperStep2>
+                        <ng-template matStepLabel>Lección</ng-template>
+                        <p class="my-6 font-medium">
+                            Información de la lección del curso
+                        </p>
+                        <div class="flex flex-col gt-xs:flex-row" style="min-height: 500px; height: 500px;">
+                            
+                            <contacts-list [lecciones]="lecciones" (saveLesson) = 'saveLesson($event)' *ngIf="showLessons"></contacts-list>
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button
+                                class="px-8 mr-2"
+                                mat-flat-button
+                                [color]="'accent'"
+                                type="button"
+                                matStepperPrevious>
+                                Regresar
+                            </button>
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                [color]="'primary'"
+                                [disabled]="lessons && lessons.length < 1"
+                                type="button"
+                                (click)="signUp()">
+                                Guardar
+                            </button><!--horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid-->
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </form>
+
+            <!--<div class="prose prose-sm max-w-3xl">
+                <p>
+                    Forms are one of the most important and most used components of any web application. Below, you can find couple of ready to use form layout examples which you
+                    can use as the base of your own forms.
+                </p>
+            </div>-->
+
+            <!-- Sectioned form with dividers -->
+            <!--<div class="prose prose-sm max-w-3xl">
+                <h2 class="mt-12">Sectioned form with dividers</h2>
+                <p>
+                    This sectioned form example uses dividers to separate the different sections of the form. Form fields uses <em>placeholders</em> and don't have separate labels
+                    for more compact look.
+                </p>
+            </div>-->
+
+        </div>
+
+
+    </div>
+</div>
