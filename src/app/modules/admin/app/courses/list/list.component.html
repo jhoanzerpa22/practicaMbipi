@@ -71,7 +71,7 @@
                         (keyup)="categoryLabel($event)"
                         [value]="searchCategory"
                         placeholder="Titulo Categoria"
-                        matInput>
+                        matInput #query>
                 </mat-form-field>
                 <button mat-icon-button color="primary" (click)="createCategory()">
                   <mat-icon

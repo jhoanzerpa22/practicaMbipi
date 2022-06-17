@@ -30,6 +30,8 @@ export class CoursesListComponent implements OnInit, OnDestroy
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+    
+  @ViewChild("query") query: ElementRef;
 
   currentCurso: any = {};
   currentIndex = -1;
@@ -250,6 +252,9 @@ export class CoursesListComponent implements OnInit, OnDestroy
             for(let c in data){   
               this.tablero.push({'title': data[c].title, "data": data[c].data});
             }
+            
+            this.query.nativeElement.focus();
+
             setTimeout(() => {
               if(location.pathname == '/courses'){
                 this.readTxt();
